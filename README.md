@@ -97,3 +97,4 @@ The rubric specifies authentication isn't strictly necessary for evaluation, but
 3. **Cart Sessioning**: Unauthenticated users attempting to add to the cart are deliberately blocked and prompted by the Login Modal (via the `protect` middleware) rather than using local-storage "shadow carts" mimicking Flipkart's strict logged-in-only tracking pipeline.
 
 *Developed specifically for the SDE Intern Evaluation.*
+# flipkart-clone
