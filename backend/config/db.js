@@ -6,8 +6,21 @@ let dbPromise;
 
 async function getDb() {
   if (!dbPromise) {
+    let dbPath = path.join(__dirname, '../db/database.sqlite');
+    
+    // VERCEL HOTFIX: Vercel functions are strictly read-only! 
+    // We physically copy the DB to the /tmp folder at runtime so users can write to it temporarily!
+    if (process.env.VERCEL) {
+      const fs = require('fs');
+      const tmpPath = '/tmp/database.sqlite';
+      if (!fs.existsSync(tmpPath)) {
+        fs.copyFileSync(dbPath, tmpPath);
+      }
+      dbPath = tmpPath;
+    }
+
     dbPromise = open({
-      filename: path.join(__dirname, '../db/database.sqlite'),
+      filename: dbPath,
       driver: sqlite3.Database
     });
   }

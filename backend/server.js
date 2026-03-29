@@ -33,5 +33,5 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Keep event loop alive (workaround for Node clean exit issue)
-setInterval(() => {}, 1000 * 60 * 60);
+// VERY IMPORTANT FOR VERCEL
+module.exports = app;
