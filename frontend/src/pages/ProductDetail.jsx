@@ -136,9 +136,9 @@ const ProductDetail = () => {
       <div className="flex flex-col md:flex-row gap-8">
         
         {/* Images & Actions */}
-        <div className="md:w-5/12 lg:w-4/12 flex gap-4 sticky top-[80px] h-fit">
+        <div className="md:w-5/12 lg:w-4/12 flex flex-col-reverse md:flex-row gap-4 md:sticky top-[80px] h-fit mb-4 md:mb-0">
           {/* Thumbnails */}
-          <div className="flex flex-col gap-2 w-16">
+          <div className="flex flex-row md:flex-col gap-2 overflow-x-auto md:w-16 snap-x hide-scrollbar pb-2 md:pb-0">
             {product.images?.map((img, idx) => (
               <div 
                 key={idx} 
@@ -164,7 +164,8 @@ const ProductDetail = () => {
                 <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} strokeWidth={2.5} />
               </button>
             </div>
-            <div className="flex gap-2 font-bold text-sm">
+            {/* Buttons (Fixed for Mobile Symmetry) */}
+            <div className="flex gap-2 font-bold text-xs sm:text-sm w-full">
               <button 
                 onClick={handleAddToCart}
                 disabled={addingToCart}
