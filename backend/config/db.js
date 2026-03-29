@@ -13,10 +13,16 @@ async function getDb() {
     if (process.env.VERCEL) {
       const fs = require('fs');
       const tmpPath = '/tmp/database.sqlite';
-      if (!fs.existsSync(tmpPath)) {
-        fs.copyFileSync(dbPath, tmpPath);
+      try {
+        if (!fs.existsSync(tmpPath)) {
+          console.log(`Copying DB from ${dbPath} to ${tmpPath}`);
+          fs.copyFileSync(dbPath, tmpPath);
+        }
+        dbPath = tmpPath;
+      } catch (err) {
+        console.error("VERCEL HOTFIX ERROR: Could not copy .sqlite to /tmp!", err);
+        // Fallback to purely read-only if copy fails so frontend queries still work!
       }
-      dbPath = tmpPath;
     }
 
     dbPromise = open({
